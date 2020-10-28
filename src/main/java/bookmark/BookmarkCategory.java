@@ -18,8 +18,8 @@ public class BookmarkCategory {
         return links;
     }
 
-    public void addLink(String link) {
-        links.add(new BookmarkList(link));
+    public void addLink(String link, String title) {
+        links.add(new BookmarkList(link, title));
     }
 
     public void removeLink(int number) {

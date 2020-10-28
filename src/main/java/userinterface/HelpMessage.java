@@ -34,22 +34,27 @@ public class HelpMessage extends Ui {
             + "star grade INDEX_NUMBER                   - marks the grade as star\n";
 
     private static final String bookmarkCommands = "Here are the bookmark commands available:\n"
-            + "bm CATEGORY_INDEX    - changes mode from bookmark main into a category \n"
-            + "add LINK             - add bookmark link into a specific category\n"
-            + "rm INDEX_NUMBER      - remove a bookmark link into a specific category\n"
-            + "list                 - prints the list of categories and respective list of links\n"
-            + "back                 - go back to bookmark main\n";
+            + "bm <category index>          - changes mode from bookmark main into a category \n"
+            + "back                         - go back to bookmark main\n"
+            + "add <link>                   - add bookmark link into a specific category\n"
+            + "cat <category name>          - add category to bookmark list\n"
+            + "rm <link number>             - remove a bookmark link into a specific category\n"
+            + "delete <category number>     - remove a bookmark category\n"
+            + "list                         - prints the list of categories and respective list of links\n"
+            + "star <link number>           - mark the bookmark link as star\n";
 
-    private static final String timetableCommand =  "Here are the timetable commands available:\n"
-            + "add class /MODULE_CODE /ONLINE or OFFLINE\n"
-            + "/ZOOM_LINK or VENUE /DAYS at TIME /NUMBER OF WEEKS                - add a class \n"
-            + "add activity /ONLINE or OFFLINE /ZOOM LINK or VENUE /DATE at TIME - add an activity\n"
-            + "show schedule                                                     - display schedule";
+    private static final String timetableCommands =  "Here are the timetable commands available:\n"
+            + "add class        - adds a class to the timetable\n"
+            + "add activity     - adds an activity to the timetable\n"
+            + "show link        - displays the links/venues of events occurring in the next 2 hours\n"
+            + "show schedule    - displays schedule\n";
 
     private static final String flashcardCommands = "Here are the flashcard commands available:\n"
             + "add     - adds a question and answer to the flashcard deck\n"
             + "list    - shows the flashcards that have been added\n"
+            + "delete  - deletes the flashcard corresponding to the card index entered by user"
             + "test    - user can attempt to answer a random question from the flashcard deck\n"
+            + "find    - searches and returns flashcards containing user's desired search term"
             + "back    - exit test mode and go back to flashcard main\n";
 
     public static void printHelpMessage() {
@@ -78,7 +83,7 @@ public class HelpMessage extends Ui {
     }
 
     public static void printTimetableHelp() {
-        System.out.println(timetableCommand);
+        System.out.println(timetableCommands);
     }
 
     public static void printAcademicHelp() {

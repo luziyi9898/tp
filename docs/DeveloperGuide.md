@@ -199,7 +199,7 @@ implemented.
 The timetable component consists of 7 major classes as shown. The above figure illustrates the
  association and the multiplicity of the classes. 
  
- 1. As shown in figure, `TimetableRun` is the main class to be accessed 
+ 1. As shown in the figure, `TimetableRun` is the main class to be accessed 
  when the timetable function is called. 
  1. It associates with the `TimeTableStorage` class which is used to save data into a text file 
  1. `DateList` class that contains a number of `EventList`. 
@@ -277,9 +277,10 @@ This section will describe in detail how the flashcard feature is implemented.
 
 The above diagram looks at the overall structure of how the flashcard component is being implemented. 
 This component is split into 4 different classes, their associations and multiplicity as explained in 
-the above Figure 7. As shown in Figure 7, the main class `FlashcardRun` will be accessed when the 
-flashcard mode is called in `StudyIt` Class. `FlashcardRun` class is associated with `FlashcardStorage` 
-class that is used to store data in .txt file and `FlashcardDeck` class which contains any number of `Flashcards`.
+the above Figure 7. 
+1. The main class `FlashcardRun` will be accessed when the flashcard mode is called in `StudyIt` Class. 
+1. `FlashcardRun` class is associated with `FlashcardStorage` class that is used to store data in .txt file. 
+1.`FlashcardDeck` class which contains any number of `Flashcards`.
 
 **Flashcard Implementation**
 

@@ -13,6 +13,7 @@ public class AddLinkCommand extends BookmarkCommand {
     private String line;
     private int categoryNumber;
     private String link;
+    private String title;
 
     public AddLinkCommand(String line, int categoryNumber) {
         this.categoryNumber = categoryNumber;
@@ -28,7 +29,7 @@ public class AddLinkCommand extends BookmarkCommand {
             } else {
                 assert categoryNumber > 0 : "Category number is not chosen";
                 evaluateLink();
-                categories.get(categoryNumber - 1).addLink(link);
+                categories.get(categoryNumber - 1).addLink(link,title);
                 ui.showBookmarkLinkList(categories.get(categoryNumber - 1).getLinks());
                 storage.saveLinksToFile(categories);
             }
@@ -45,10 +46,20 @@ public class AddLinkCommand extends BookmarkCommand {
         }
         assert line.length() > 0 : "Link should not be empty";
         link = line.substring(ADD_LENGTH).trim();
-        if (!link.contains("https://") || !link.contains(".") || link.contains(" ")) {
+        if (link.contains(" t->")) {
+            String[] array = link.split(" t->");
+            if (array.length < 2) {
+                throw new EmptyBookmarkException();
+            }
+            link = array[0].trim();
+            title = array[1].trim();
+        } else {
+            title = null;
+        }
+        if (!link.contains(".") || link.contains(" ")) {
             throw new InvalidBookmarkException();
         }
-        assert link.contains("https://") && link.contains(".") && !link.contains(" ") : "Invalid link";
+        assert link.contains(".") && !link.contains(" ") : "Invalid link";
     }
 
     public int getCategoryNumber() {

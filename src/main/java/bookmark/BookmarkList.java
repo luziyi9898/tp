@@ -3,33 +3,48 @@ package bookmark;
 public class BookmarkList {
     private String link;
     private Boolean star;
+    private String title;
 
-    public BookmarkList(String link) {
+    public BookmarkList(String link, String title) {
         this.link = link;
         this.star = false;
+        this.title = title;
     }
 
     public String getLink() {
-        return link;
+        String returnLink = "";
+        if (star) {
+            returnLink += "|STAR|";
+        }
+        if (title != null) {
+            return returnLink + link + " t->" + title;
+        } else {
+            return returnLink + link;
+        }
     }
+
 
     public void markLinkAsStar() {
         if (!this.star) {
             this.star = true;
-        } else if (star) {
+        } else {
+            assert this.star : "star is unmarked incorrectly";
             this.star = false;
         }
     }
 
-    public String getStarIcon() {
-        return (star ? "[\u2713]" : ""); //return tick symbols
+    private String getStarIcon() {
+        return (star ? " (*)" : ""); //return tick symbols
     }
 
     public String toString() {
-        return getStarIcon() + getLink();
+        if (title == "" || title == null) {
+            return link + getStarIcon();
+        }
+        return title + ": " + link + getStarIcon();
     }
 
-    public boolean getStar() {
+    public Boolean getStar() {
         return star;
     }
 }

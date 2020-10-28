@@ -3,9 +3,9 @@ package flashcard;
 import userinterface.Ui;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class FlashcardDeck {
 
@@ -84,25 +84,50 @@ public class FlashcardDeck {
         int cardIndex = 0;
         try {
             cardIndex = Integer.parseInt(userInput);
+            if (cardIndex > flashcardDeck.size()) {
+                Ui.printDivider();
+                System.out.println("Sorry, you only have " + flashcardDeck.size() + " cards in your deck!\n"
+                        + "Please enter a number within the range of 1-" + flashcardDeck.size() + ".");
+                Ui.printDivider();
+            } else {
+                assert cardIndex <= flashcardDeck.size() : "card index inserted should be less than size of deck "
+                        + "at this step";
+                Ui.printDivider();
+                System.out.println("Noted. I have removed this card: "
+                        + flashcardDeck.get(cardIndex - 1).question + "|" + flashcardDeck.get(cardIndex - 1).answer
+                        + "\n" + "Now you have " + (flashcardDeck.size() - 1) + " cards in the list.");
+                Ui.printDivider();
+                flashcardDeck.remove(cardIndex - 1);
+            }
         } catch (NumberFormatException e) {
             Ui.printDivider();
+
             System.out.println("Please enter the index of the card as an integer!");
             Ui.printDivider();
         }
-        if (cardIndex > flashcardDeck.size()) {
+    }
+
+    public void findCard() {
+        int numberOfCardsFound = 0;
+        Scanner in = new Scanner(System.in);
+        Ui.printDivider();
+        System.out.println("Please enter a relevant search term: ");
+        String searchItem = in.nextLine();
+        ArrayList<Flashcard> cardsFound = (ArrayList<Flashcard>) flashcardDeck.stream()
+                .filter((flashcard) -> flashcard.question.contains(searchItem))
+                .collect((Collectors.toList()));
+        if (cardsFound.size() == 0) {
             Ui.printDivider();
-            System.out.println("Sorry, you only have " + flashcardDeck.size() + " cards in your deck!\n"
-                    + "Please enter a number within the range of 1-" + flashcardDeck.size() + ".");
+            System.out.println("There are no matching cards in your list.");
             Ui.printDivider();
         } else {
-            assert cardIndex <= flashcardDeck.size() : "card index inserted should be less than size of deck at this"
-                    + "step";
             Ui.printDivider();
-            System.out.println("Noted. I have removed this card: "
-                    + flashcardDeck.get(cardIndex - 1).question + "|" + flashcardDeck.get(cardIndex - 1).answer
-                    + "\n" + "Now you have " + (flashcardDeck.size() - 1) + " cards in the list.");
+            System.out.println("Here are the matching cards in your list:");
+            for (Flashcard flashcard: cardsFound) {
+                numberOfCardsFound++;
+                System.out.println(numberOfCardsFound + ". " + flashcard.question + "|" + flashcard.answer);
+            }
             Ui.printDivider();
-            flashcardDeck.remove(cardIndex - 1);
         }
     }
 }
